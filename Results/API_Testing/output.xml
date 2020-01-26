@@ -1,0 +1,1188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.7.1 on win32)" generated="20200124 18:51:56.101" rpa="false">
+<suite id="s1" name="Demoap2" source="C:\Users\Sean\development\robot-scripts\DemoApp\tests\demoap2.robot">
+<test id="s1-t1" name="TC13_Gain access to API and generate authentcation token">
+<kw name="Begin Basic Authentication" library="AppDemoAPI">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<assign>
+<var>${authenticate}</var>
+</assign>
+<msg timestamp="20200124 18:51:56.391" level="INFO">${authenticate} = ['Dave23', 'power']</msg>
+<status status="PASS" starttime="20200124 18:51:56.390" endtime="20200124 18:51:56.391"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>basicSession</arg>
+<arg>${START_URL}</arg>
+<arg>auth=${authenticate}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:56.391" level="INFO">Creating Session using : alias=basicSession, url=http://localhost:8078, headers={},                     cookies={}, auth=&lt;requests.auth.HTTPBasicAuth object at 0x000002CAD556C080&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:51:56.391" endtime="20200124 18:51:56.392"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>basicSession</arg>
+<arg>${ROUTE_ONE}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:51:56.392" level="INFO">GET Request using : uri=/api/auth/token, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200124 18:51:58.676" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:51:56.392" endtime="20200124 18:51:58.676"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.677" level="INFO">{"status":"SUCCESS","token":"MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2"}
+</msg>
+<status status="PASS" starttime="20200124 18:51:58.677" endtime="20200124 18:51:58.677"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.677" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:51:58.677" endtime="20200124 18:51:58.678"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:56.390" endtime="20200124 18:51:58.678"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:51:58.679" level="INFO">${responseDict} = {'status': 'SUCCESS', 'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2'}</msg>
+<status status="PASS" starttime="20200124 18:51:58.679" endtime="20200124 18:51:58.679"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.679" level="INFO">${responseDict} = {'status': 'SUCCESS', 'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2'}</msg>
+<status status="PASS" starttime="20200124 18:51:58.679" endtime="20200124 18:51:58.680"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.678" endtime="20200124 18:51:58.680"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:51:58.681" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:51:58.680" endtime="20200124 18:51:58.681"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.681" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:51:58.681" endtime="20200124 18:51:58.681"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.680" endtime="20200124 18:51:58.681"></status>
+</kw>
+<kw name="Validate API Authentication" library="AppDemoAPI">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>SUCCESS</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:51:58.682" endtime="20200124 18:51:58.682"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.682" endtime="20200124 18:51:58.682"></status>
+</kw>
+<kw name="Extract Token" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${responseToken}</var>
+</assign>
+<msg timestamp="20200124 18:51:58.684" level="INFO">${responseToken} = MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2</msg>
+<status status="PASS" starttime="20200124 18:51:58.683" endtime="20200124 18:51:58.684"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseToken}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.685" level="INFO">${responseToken} = MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2</msg>
+<status status="PASS" starttime="20200124 18:51:58.684" endtime="20200124 18:51:58.685"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.683" endtime="20200124 18:51:58.685"></status>
+</kw>
+<kw name="Make Token Globally Available" library="AppDemoAPI">
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${responseToken}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.686" level="INFO">${responseToken} = MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2</msg>
+<status status="PASS" starttime="20200124 18:51:58.686" endtime="20200124 18:51:58.686"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.685" endtime="20200124 18:51:58.686"></status>
+</kw>
+<doc>A valid user account should exist before running this. Create one with TC6 or manualy</doc>
+<tags>
+<tag>GenToken</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:51:56.389" endtime="20200124 18:51:58.687" critical="yes"></status>
+</test>
+<test id="s1-t2" name="TC14_Review users registered in the system">
+<kw name="Create Headers" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${responseToken}</arg>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:51:58.690" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:51:58.690" endtime="20200124 18:51:58.690"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.691" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:51:58.691" endtime="20200124 18:51:58.691"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.689" endtime="20200124 18:51:58.691"></status>
+</kw>
+<kw name="Use Token to Access API for Reviewing Registered Users" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>Review</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:51:58.692" level="INFO">Creating Session using : alias=Review, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:51:58.692" endtime="20200124 18:51:58.693"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>Review</arg>
+<arg>${ROUTE_TWO}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:51:58.694" level="INFO">GET Request using : uri=/api/users, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200124 18:52:00.733" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:51:58.693" endtime="20200124 18:52:00.733"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.735" level="INFO">{"payload":["DAVE24","Dave23","dave24"],"status":"SUCCESS"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:00.734" endtime="20200124 18:52:00.735"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.738" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:00.736" endtime="20200124 18:52:00.738"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:51:58.692" endtime="20200124 18:52:00.739"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:00.742" level="INFO">${responseDict} = {'payload': ['DAVE24', 'Dave23', 'dave24'], 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:00.741" endtime="20200124 18:52:00.742"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.742" level="INFO">${responseDict} = {'payload': ['DAVE24', 'Dave23', 'dave24'], 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:00.742" endtime="20200124 18:52:00.742"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.740" endtime="20200124 18:52:00.743"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:00.744" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:00.744" endtime="20200124 18:52:00.744"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.746" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:00.745" endtime="20200124 18:52:00.746"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.743" endtime="20200124 18:52:00.746"></status>
+</kw>
+<kw name="Validate API Authentication" library="AppDemoAPI">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>SUCCESS</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:00.747" endtime="20200124 18:52:00.748"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.747" endtime="20200124 18:52:00.748"></status>
+</kw>
+<kw name="Extract Payload" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>payload</arg>
+</arguments>
+<assign>
+<var>${responsePayload}</var>
+</assign>
+<msg timestamp="20200124 18:52:00.750" level="INFO">${responsePayload} = ['DAVE24', 'Dave23', 'dave24']</msg>
+<status status="PASS" starttime="20200124 18:52:00.749" endtime="20200124 18:52:00.750"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${responsePayload}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.751" level="INFO">['DAVE24', 'Dave23', 'dave24']</msg>
+<status status="PASS" starttime="20200124 18:52:00.750" endtime="20200124 18:52:00.751"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responsePayload}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.751" level="INFO">${responsePayload} = ['DAVE24', 'Dave23', 'dave24']</msg>
+<status status="PASS" starttime="20200124 18:52:00.751" endtime="20200124 18:52:00.752"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.749" endtime="20200124 18:52:00.752"></status>
+</kw>
+<kw name="Verify That User Data Exist" library="AppDemoAPI">
+<kw name="List Should Contain Value" library="Collections">
+<doc>Fails if the ``value`` is not found from ``list``.</doc>
+<arguments>
+<arg>${responsePayload}</arg>
+<arg>${USERNAME}</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:00.753" endtime="20200124 18:52:00.754"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.753" endtime="20200124 18:52:00.754"></status>
+</kw>
+<tags>
+<tag>ReviewUsers</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:51:58.688" endtime="20200124 18:52:00.755" critical="yes"></status>
+</test>
+<test id="s1-t3" name="TC15_User should be able to get personal data when authenticated">
+<kw name="Create Headers" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${responseToken}</arg>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:52:00.761" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:00.760" endtime="20200124 18:52:00.761"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.762" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:00.761" endtime="20200124 18:52:00.762"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.759" endtime="20200124 18:52:00.762"></status>
+</kw>
+<kw name="Use Token to Access API to Read Personal Data" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:00.764" level="INFO">Creating Session using : alias=dataView, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:52:00.763" endtime="20200124 18:52:00.764"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${ROUTE_THREE}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:52:00.765" level="INFO">GET Request using : uri=/api/users/Dave23, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200124 18:52:02.784" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:00.765" endtime="20200124 18:52:02.784"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.786" level="INFO">{"message":"retrieval succesful","payload":{"firstname":"David","lastname":"Smith","phone":"+1 239 334 5221"},"status":"SUCCESS"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:02.785" endtime="20200124 18:52:02.786"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.787" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:02.786" endtime="20200124 18:52:02.787"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:00.763" endtime="20200124 18:52:02.788"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:02.792" level="INFO">${responseDict} = {'message': 'retrieval succesful', 'payload': {'firstname': 'David', 'lastname': 'Smith', 'phone': '+1 239 334 5221'}, 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.790" endtime="20200124 18:52:02.793"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.794" level="INFO">${responseDict} = {'message': 'retrieval succesful', 'payload': {'firstname': 'David', 'lastname': 'Smith', 'phone': '+1 239 334 5221'}, 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.793" endtime="20200124 18:52:02.795"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.789" endtime="20200124 18:52:02.795"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:02.799" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:02.798" endtime="20200124 18:52:02.799"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.801" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:02.799" endtime="20200124 18:52:02.801"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.796" endtime="20200124 18:52:02.801"></status>
+</kw>
+<kw name="Validate API Authentication" library="AppDemoAPI">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>SUCCESS</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:02.804" endtime="20200124 18:52:02.805"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.803" endtime="20200124 18:52:02.806"></status>
+</kw>
+<tags>
+<tag>UserInfo</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:52:00.757" endtime="20200124 18:52:02.807" critical="yes"></status>
+</test>
+<test id="s1-t4" name="TC16_User should be able to modify personal data when authenticated">
+<kw name="Create Headers" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${responseToken}</arg>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:52:02.812" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.812" endtime="20200124 18:52:02.812"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.813" level="INFO">${headers} = {'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.813" endtime="20200124 18:52:02.813"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.811" endtime="20200124 18:52:02.813"></status>
+</kw>
+<kw name="Create Payload" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>firstname=Patrick</arg>
+<arg>lastname=Enemy</arg>
+</arguments>
+<assign>
+<var>${payload}</var>
+</assign>
+<msg timestamp="20200124 18:52:02.816" level="INFO">${payload} = {'firstname': 'Patrick', 'lastname': 'Enemy'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.815" endtime="20200124 18:52:02.816"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${payload}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.817" level="INFO">${payload} = {'firstname': 'Patrick', 'lastname': 'Enemy'}</msg>
+<status status="PASS" starttime="20200124 18:52:02.816" endtime="20200124 18:52:02.817"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.815" endtime="20200124 18:52:02.817"></status>
+</kw>
+<kw name="Use Token to Access API to Modify Personal Data" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>ModifyInfo</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:02.821" level="INFO">Creating Session using : alias=ModifyInfo, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:52:02.820" endtime="20200124 18:52:02.822"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>ModifyInfo</arg>
+<arg>${ROUTE_THREE}</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:52:02.823" level="INFO">PUT Request using : uri=/api/users/Dave23, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'token': 'MjQ4OTkyNDE0MDg3NjY0MjA5OTg3NjE1NzY0NzQzNjExNjIwNDE2', 'Content-Type': 'application/json'} 
+data={"firstname": "Patrick", "lastname": "Enemy"} 
+json=None</msg>
+<msg timestamp="20200124 18:52:04.866" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:02.822" endtime="20200124 18:52:04.866"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.867" level="INFO">{"message":"Updated","status":"SUCCESS"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:04.866" endtime="20200124 18:52:04.867"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.869" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:04.868" endtime="20200124 18:52:04.869"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:02.818" endtime="20200124 18:52:04.869"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:04.875" level="INFO">${responseDict} = {'message': 'Updated', 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:04.873" endtime="20200124 18:52:04.875"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.876" level="INFO">${responseDict} = {'message': 'Updated', 'status': 'SUCCESS'}</msg>
+<status status="PASS" starttime="20200124 18:52:04.876" endtime="20200124 18:52:04.877"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.872" endtime="20200124 18:52:04.877"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:04.880" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:04.879" endtime="20200124 18:52:04.880"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.882" level="INFO">${responseStatus} = SUCCESS</msg>
+<status status="PASS" starttime="20200124 18:52:04.881" endtime="20200124 18:52:04.883"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.878" endtime="20200124 18:52:04.883"></status>
+</kw>
+<kw name="Verify That User Data Has Been Changed" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${responseMessage}</var>
+</assign>
+<msg timestamp="20200124 18:52:04.886" level="INFO">${responseMessage} = Updated</msg>
+<status status="PASS" starttime="20200124 18:52:04.886" endtime="20200124 18:52:04.887"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseMessage}</arg>
+<arg>Updated</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:04.887" endtime="20200124 18:52:04.888"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.885" endtime="20200124 18:52:04.888"></status>
+</kw>
+<kw name="Validate API Authentication" library="AppDemoAPI">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>SUCCESS</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:04.892" endtime="20200124 18:52:04.893"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.890" endtime="20200124 18:52:04.893"></status>
+</kw>
+<tags>
+<tag>UserMod</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:52:02.810" endtime="20200124 18:52:04.894" critical="yes"></status>
+</test>
+<test id="s1-t5" name="TC17_User should not be able to access personal data without Token">
+<kw name="Create Header Without Token" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:52:04.906" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:04.905" endtime="20200124 18:52:04.906"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.908" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:04.907" endtime="20200124 18:52:04.908"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.903" endtime="20200124 18:52:04.908"></status>
+</kw>
+<kw name="Use Token to Access API to Read Personal Data" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:04.911" level="INFO">Creating Session using : alias=dataView, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:52:04.911" endtime="20200124 18:52:04.912"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${ROUTE_THREE}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:52:04.914" level="INFO">GET Request using : uri=/api/users/Dave23, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200124 18:52:06.930" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:04.913" endtime="20200124 18:52:06.930"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.932" level="INFO">{"message":"Token authentication required","status":"FAILURE"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:06.931" endtime="20200124 18:52:06.932"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.934" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:06.933" endtime="20200124 18:52:06.934"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:04.910" endtime="20200124 18:52:06.934"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.940" level="INFO">${responseDict} = {'message': 'Token authentication required', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.938" endtime="20200124 18:52:06.940"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.941" level="INFO">${responseDict} = {'message': 'Token authentication required', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.940" endtime="20200124 18:52:06.942"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.937" endtime="20200124 18:52:06.942"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.947" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:06.945" endtime="20200124 18:52:06.947"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.948" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:06.947" endtime="20200124 18:52:06.948"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.943" endtime="20200124 18:52:06.949"></status>
+</kw>
+<kw name="Validate Failed API Authentication" library="AppDemoAPI">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>Token authentication required</arg>
+<arg>Invalid Token</arg>
+</arguments>
+<assign>
+<var>${failure_message}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.951" level="INFO">${failure_message} = ['Token authentication required', 'Invalid Token']</msg>
+<status status="PASS" starttime="20200124 18:52:06.950" endtime="20200124 18:52:06.951"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${responseMessage}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.952" level="INFO">${responseMessage} = Token authentication required</msg>
+<status status="PASS" starttime="20200124 18:52:06.951" endtime="20200124 18:52:06.952"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${failure_message}</arg>
+<arg>${responseMessage}</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:06.953" endtime="20200124 18:52:06.953"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>FAILURE</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:06.954" endtime="20200124 18:52:06.955"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.949" endtime="20200124 18:52:06.955"></status>
+</kw>
+<tags>
+<tag>NoToken</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:52:04.898" endtime="20200124 18:52:06.956" critical="yes"></status>
+</test>
+<test id="s1-t6" name="TC18_User should not be able to modify personal data without Token">
+<kw name="Create Header Without Token" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.968" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.963" endtime="20200124 18:52:06.968"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.969" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.968" endtime="20200124 18:52:06.970"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.962" endtime="20200124 18:52:06.970"></status>
+</kw>
+<kw name="Create Payload" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>firstname=Patrick</arg>
+<arg>lastname=Enemy</arg>
+</arguments>
+<assign>
+<var>${payload}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.973" level="INFO">${payload} = {'firstname': 'Patrick', 'lastname': 'Enemy'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.972" endtime="20200124 18:52:06.973"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${payload}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.975" level="INFO">${payload} = {'firstname': 'Patrick', 'lastname': 'Enemy'}</msg>
+<status status="PASS" starttime="20200124 18:52:06.974" endtime="20200124 18:52:06.975"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.971" endtime="20200124 18:52:06.975"></status>
+</kw>
+<kw name="Use Token to Access API to Modify Personal Data" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>ModifyInfo</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:06.978" level="INFO">Creating Session using : alias=ModifyInfo, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:52:06.977" endtime="20200124 18:52:06.979"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>ModifyInfo</arg>
+<arg>${ROUTE_THREE}</arg>
+<arg>data=${payload}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:52:06.980" level="INFO">PUT Request using : uri=/api/users/Dave23, params=None, files=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+data={"firstname": "Patrick", "lastname": "Enemy"} 
+json=None</msg>
+<msg timestamp="20200124 18:52:08.996" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:06.979" endtime="20200124 18:52:08.996"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:08.998" level="INFO">{"message":"Token authentication required","status":"FAILURE"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:08.997" endtime="20200124 18:52:08.998"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:09.000" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:08.999" endtime="20200124 18:52:09.000"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:06.976" endtime="20200124 18:52:09.000"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.006" level="INFO">${responseDict} = {'message': 'Token authentication required', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:09.004" endtime="20200124 18:52:09.006"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:09.008" level="INFO">${responseDict} = {'message': 'Token authentication required', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:09.006" endtime="20200124 18:52:09.008"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:09.003" endtime="20200124 18:52:09.008"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.011" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:09.011" endtime="20200124 18:52:09.012"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:09.013" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:09.012" endtime="20200124 18:52:09.013"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:09.010" endtime="20200124 18:52:09.013"></status>
+</kw>
+<kw name="Validate Failed API Authentication" library="AppDemoAPI">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>Token authentication required</arg>
+<arg>Invalid Token</arg>
+</arguments>
+<assign>
+<var>${failure_message}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.016" level="INFO">${failure_message} = ['Token authentication required', 'Invalid Token']</msg>
+<status status="PASS" starttime="20200124 18:52:09.016" endtime="20200124 18:52:09.016"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${responseMessage}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.018" level="INFO">${responseMessage} = Token authentication required</msg>
+<status status="PASS" starttime="20200124 18:52:09.017" endtime="20200124 18:52:09.018"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${failure_message}</arg>
+<arg>${responseMessage}</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:09.018" endtime="20200124 18:52:09.019"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>FAILURE</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:09.020" endtime="20200124 18:52:09.021"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:09.015" endtime="20200124 18:52:09.021"></status>
+</kw>
+<tags>
+<tag>Restricted</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:52:06.960" endtime="20200124 18:52:09.022" critical="yes"></status>
+</test>
+<test id="s1-t7" name="TC21_User should not be able to access personal data with Fake Token">
+<kw name="Create Header With Fake Token" library="AppDemoAPI">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${FAKE_TOKEN}</arg>
+<arg>Content-Type=${CONTENT_TYPE}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.034" level="INFO">${headers} = {'token': 'NzQxOTMxNDExMTE4MjY4MIg4NTMxMDQ4NTg1OTc2MjA4MjQyMzI=', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:09.033" endtime="20200124 18:52:09.035"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:09.036" level="INFO">${headers} = {'token': 'NzQxOTMxNDExMTE4MjY4MIg4NTMxMDQ4NTg1OTc2MjA4MjQyMzI=', 'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20200124 18:52:09.035" endtime="20200124 18:52:09.036"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:09.032" endtime="20200124 18:52:09.036"></status>
+</kw>
+<kw name="Use Token to Access API to Read Personal Data" library="AppDemoAPI">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${START_URL}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:09.040" level="INFO">Creating Session using : alias=dataView, url=http://localhost:8078, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200124 18:52:09.039" endtime="20200124 18:52:09.041"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>dataView</arg>
+<arg>${ROUTE_THREE}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200124 18:52:09.042" level="INFO">GET Request using : uri=/api/users/Dave23, params=None, allow_redirects=True, timeout=None
+headers={'User-Agent': 'python-requests/2.21.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'token': 'NzQxOTMxNDExMTE4MjY4MIg4NTMxMDQ4NTg1OTc2MjA4MjQyMzI=', 'Content-Type': 'application/json'} 
+data=None 
+json=None</msg>
+<msg timestamp="20200124 18:52:11.078" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:09.041" endtime="20200124 18:52:11.078"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:11.080" level="INFO">{"message":"Invalid Token","status":"FAILURE"}
+</msg>
+<status status="PASS" starttime="20200124 18:52:11.079" endtime="20200124 18:52:11.080"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:11.081" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20200124 18:52:11.081" endtime="20200124 18:52:11.082"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:09.038" endtime="20200124 18:52:11.082"></status>
+</kw>
+<kw name="Extract API Response Content from JSON Output" library="AppDemoAPI">
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>json.loads('''${response.content}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${responseDict}</var>
+</assign>
+<msg timestamp="20200124 18:52:11.087" level="INFO">${responseDict} = {'message': 'Invalid Token', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:11.086" endtime="20200124 18:52:11.087"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:11.088" level="INFO">${responseDict} = {'message': 'Invalid Token', 'status': 'FAILURE'}</msg>
+<status status="PASS" starttime="20200124 18:52:11.088" endtime="20200124 18:52:11.089"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:11.085" endtime="20200124 18:52:11.089"></status>
+</kw>
+<kw name="Extract Status" library="AppDemoAPI">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>status</arg>
+</arguments>
+<assign>
+<var>${responseStatus}</var>
+</assign>
+<msg timestamp="20200124 18:52:11.093" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:11.092" endtime="20200124 18:52:11.093"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+</arguments>
+<msg timestamp="20200124 18:52:11.094" level="INFO">${responseStatus} = FAILURE</msg>
+<status status="PASS" starttime="20200124 18:52:11.093" endtime="20200124 18:52:11.094"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:11.090" endtime="20200124 18:52:11.095"></status>
+</kw>
+<kw name="Validate Failed API Authentication" library="AppDemoAPI">
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>Token authentication required</arg>
+<arg>Invalid Token</arg>
+</arguments>
+<assign>
+<var>${failure_message}</var>
+</assign>
+<msg timestamp="20200124 18:52:11.097" level="INFO">${failure_message} = ['Token authentication required', 'Invalid Token']</msg>
+<status status="PASS" starttime="20200124 18:52:11.096" endtime="20200124 18:52:11.097"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${responseDict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${responseMessage}</var>
+</assign>
+<msg timestamp="20200124 18:52:11.098" level="INFO">${responseMessage} = Invalid Token</msg>
+<status status="PASS" starttime="20200124 18:52:11.098" endtime="20200124 18:52:11.099"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${failure_message}</arg>
+<arg>${responseMessage}</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:11.099" endtime="20200124 18:52:11.100"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${responseStatus}</arg>
+<arg>FAILURE</arg>
+</arguments>
+<status status="PASS" starttime="20200124 18:52:11.100" endtime="20200124 18:52:11.101"></status>
+</kw>
+<status status="PASS" starttime="20200124 18:52:11.096" endtime="20200124 18:52:11.101"></status>
+</kw>
+<tags>
+<tag>FakeToken</tag>
+</tags>
+<status status="PASS" starttime="20200124 18:52:09.027" endtime="20200124 18:52:11.103" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20200124 18:51:56.103" endtime="20200124 18:52:11.109"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="7" fail="0">Critical Tests</stat>
+<stat pass="7" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0">FakeToken</stat>
+<stat pass="1" fail="0">GenToken</stat>
+<stat pass="1" fail="0">NoToken</stat>
+<stat pass="1" fail="0">Restricted</stat>
+<stat pass="1" fail="0">ReviewUsers</stat>
+<stat pass="1" fail="0">UserInfo</stat>
+<stat pass="1" fail="0">UserMod</stat>
+</tag>
+<suite>
+<stat pass="7" fail="0" id="s1" name="Demoap2">Demoap2</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

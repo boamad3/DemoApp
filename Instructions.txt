@@ -1,0 +1,64 @@
+This should be a straight forward... but nothing is ever straight forward
+
+Requirements:
+Python 3.7
+robotframework	3.1.2
+robotframework-seleniumlibrary	4.1.0 ---> Required for ui automation
+robotframework-requests	0.6.2 ---> Required for API testing
+robotframework collections library
+
+To install robot framework and its libraries in Python, do the following:
+    pip install robotframework
+    pip install --upgrade robotframework-seleniumlibrary
+    pip install robotframework-requests
+
+To set-up web drivers for automation, please visit: https://robotframework.org/SeleniumLibrary/#browser-drivers
+The webApp can be found here: https://github.com/Interview-demoapp/Flasky
+
+
+Implementation:
+1. Load Demo App and initialize the database
+2. Open "DemoUI.robot" and update the URL of the application (Variable name: ${START_URL})
+3. For Windows Users, open "TestDemoApp.bat" in any text editor and change the directory to
+    where you saved this package (test package)
+4. Run the .bat file and wait for the magic!! ---> This runs the entire test suites for
+    both UI and API automation
+5. The automation test report is generated in the folder ...\DemoApp\Results
+
+
+Running application via Terminal:
+Assumes you are in the directory of the test suite: 
+Example:  C:\Users\development\DemoApp> 
+
+Type the following: 
+robot -d results\ui_testing -i registration tests\demoui.robot
+
+The above example runs the test case with the tag, "registration" (-i registration) 
+from the test suite "demoui.robot" and stores it in "-d results\ui_testing"
+
+To run the full demoui.robot test suite, type into terminal:
+robot -d results\ui_testing tests\demoui.robot
+
+
+Folder Structure:
+DemoApp
+    Resources
+        AppDemoAPI.robot ---> Keyword File for API Testing
+        DemoApp.robot ---> Keyword File for UI Testing
+        Common.robot ----> Test setup and teardown keyword file
+        PO
+            LandingPage.robot ---> lower level keyword file for main page
+            LoginPage.robot ---> lower level keyword file for login page
+            RegisterForm.robot ---> lower level keyword file for registration page
+            UserData.robot ---> lower level keyword file for User information page
+     Results
+        API_Testing ---> Results folder for API testing
+        UI_Testing ---> Results folder for UI testing
+     Tests
+          demoAP2.robot ---> Contains API Test cases
+          demoUI.robot ---> Contains UI Test cases
+
+
+Recommended IDE:
+Pycharm
+
